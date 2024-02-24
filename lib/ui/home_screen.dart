@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/hadeth_tab.dart';
+import 'package:islami/ui/myThemeData.dart';
 import 'package:islami/ui/quran/quran_tab.dart';
 import 'package:islami/ui/radio_tab.dart';
 import 'package:islami/ui/sebha_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = 'home screen';
@@ -22,8 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
             color: Colors.transparent,
             image: DecorationImage(
-              image: AssetImage(
-                'assets/images/default_bg.png',
+              image: AssetImage(MyTemeData.getMainBackGround()
+              //  MyTemeData.isDarkEnabled?
+               // 'assets/images/dark_bg.png':
+                //'assets/images/default_bg.png',
               ),
               fit: BoxFit.fill,
             )),
@@ -32,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text('islami'),
+              child: Text(AppLocalizations.of(context)!.appTitle),
             ),
           ),
           bottomNavigationBar:

@@ -16,8 +16,7 @@ class TitleWidget extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        child: Text(title,style: TextStyle(fontSize: 25,
-        fontWeight: FontWeight.bold),),
+        child: Text(title,style:Theme.of(context).textTheme.titleLarge,),
       ),
     );
   }
