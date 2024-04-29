@@ -47,6 +47,16 @@ class SettingsProvider extends ChangeNotifier {
         ? "assets/images/splash_dark.jpg"
         : "assets/images/splash.jpg";
   }
+  String getSebhaBody() {
+    return isDarkModeEnabled()
+        ? "assets/images/body_sebha_dark.png"
+        : "assets/images/body_sebha_logo.png";
+  }
+  String getSebhaHead() {
+    return isDarkModeEnabled()
+        ? "assets/images/head_sebha_dark.png"
+        : "assets/images/head_sebha_logo.png";
+  }
 
  Future<void>loadSetting() async {
    final SharedPreferences prefs = await SharedPreferences.getInstance();

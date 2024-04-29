@@ -44,12 +44,12 @@ class _TasbehTabState extends State<TasbehTab> {
             child: Stack(
               alignment: Alignment.topCenter,
               children: [
-                Image.asset('assets/images/head_sebha_logo.png'),
+                Image.asset(provider.getSebhaHead()),
                 Container(
                   margin: EdgeInsets.only(top: 75),
                   child: Transform.rotate(
                     angle: angle,
-                    child: Image.asset('assets/images/body_sebha_logo.png'),
+                    child: Image.asset(provider.getSebhaBody()),
                   ),
                 ),
               ],
