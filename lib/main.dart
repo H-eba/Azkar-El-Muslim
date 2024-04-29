@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/home_screen.dart';
-import 'package:islami/ui/myThemeData.dart';
-import 'package:islami/ui/quran/chapter_details.dart';
-import 'package:islami/ui/splash_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-void main() {
-  runApp(const MyApp());
+import 'package:islami/providers/SettingsProvider.dart';
+import 'package:islami/ui/MyThemeData.dart';
+import 'package:islami/ui/chapterDetails/ChapterDetailsScreen.dart';
+import 'package:islami/ui/headethDetails/HadethDetails.dart';
+import 'package:islami/ui/homeScreen/HomeScreen.dart';
+import 'package:islami/ui/splash/SplashScreen.dart';
+import 'package:provider/provider.dart';
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var provider=SettingsProvider();
+  await provider.loadSetting();
+  runApp(ChangeNotifierProvider(
+      create: (BuildContext context) => provider,
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,30 +22,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: MyTemeData.light,
-        darkTheme: MyTemeData.dark,
-        themeMode: ThemeMode.light,
-        initialRoute: SplashScreen.routeName,
-        routes: {
-          SplashScreen.routeName: (_) => SplashScreen(),
-          HomeScreen.routeName: (_) => HomeScreen(),
-          ChapterDetails.routeName:(_)=>ChapterDetails(),
-        },
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('en'), // English
-        Locale('ar'), // arabic
-      ],
-      locale: Locale('ar'),
-
+      title: 'Flutter Demo',
+      theme: MyThemeData.light,
+      darkTheme: MyThemeData.dark,
+      themeMode: settingsProvider.selectedTheme,
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        SplashScreen.routeName: (_) => SplashScreen(),
+        HomeScreen.routeName: (_) => HomeScreen(),
+        HadethDetailsScreen.routeName: (_) => HadethDetailsScreen(),
+        ChapterDetailsScreen.routeName: (_) => ChapterDetailsScreen()
+      },
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(settingsProvider.selectedLocale),
     );
   }
 }
+
